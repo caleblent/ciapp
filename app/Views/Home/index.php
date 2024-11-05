@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
+<?= $this->extend("layouts/default") ?>
+
+<?= $this->section("title") ?>Home<?= $this->endSection() ?>
+
+<?= $this->section("content") ?>
     <h1>Welcome to the Home page!</h1>
-</body>
-</html>
+<?= $this->endSection() ?>

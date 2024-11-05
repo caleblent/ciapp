@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Articles</title>
-</head>
-<body>
+<?= $this->include("header") ?>
     <h1>Welcome to the Articles page!</h1>
 </body>
 </html>
