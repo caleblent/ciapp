@@ -6,6 +6,13 @@ class Articles extends BaseController
 {
     public function index() 
     {
-        return view("Articles/index", ["title" => "Articles"]);
+        $data = [
+            ["title" => "One", "content" => "The first piece"],
+            ["title" => "Two", "content" => "More content here"]
+        ];
+
+        return view("Articles/index", [
+            "articles" => $data
+        ]);
     }
 }
