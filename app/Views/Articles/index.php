@@ -6,6 +6,8 @@
 
     <h1>Welcome to the Articles page!</h1>
 
+    <a href="<?= url_to("Articles::new") ?>">New</a>
+
     <?php foreach ($articles as $article): ?>
 
         <article>

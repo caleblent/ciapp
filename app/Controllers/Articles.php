@@ -27,4 +27,22 @@ class Articles extends BaseController
             "article" => $article
         ]);
     }
+
+    public function new()
+    {
+        return view("Articles/new");
+    }
+
+    public function create()
+    {
+        $model = new ArticleModel;
+        
+        $model->insert($this->request->getPost());
+
+        $data = $model->findAll();
+
+        return view("Articles/index", [
+            "articles" => $data
+        ]);
+    }
 }
