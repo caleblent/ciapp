@@ -37,12 +37,22 @@ class Articles extends BaseController
     {
         $model = new ArticleModel;
         
-        $model->insert($this->request->getPost());
+        $id = $model->insert($this->request->getPost());
 
-        $data = $model->findAll();
+        if ($id === false) {
+            return redirect()->back()
+                ->with("errors", $model->errors())
+                ->withInput();
+        }
 
-        return view("Articles/index", [
-            "articles" => $data
-        ]);
+        return redirect()->to("articles/$id")
+            ->with("message", "Article saved.");
+
+        // $data = $model->findAll();
+
+        // return view("Articles/index", [
+        //     "articles" => $data
+        // ]);
     }
+
 }
