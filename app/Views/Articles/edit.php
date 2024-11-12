@@ -16,7 +16,9 @@
 
 <?php endif; ?>
 
-<?= form_open("articles/update/" . $article->id) ?>
+<?= form_open("articles/" . $article->id) ?>
+
+<input type="hidden" name="_method" value="PATCH">
 
 <?= $this->include("Articles/form") ?>
 

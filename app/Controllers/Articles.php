@@ -71,6 +71,8 @@ class Articles extends BaseController
 
         $article->fill($this->request->getPost());
 
+        $article->__unset("_method");
+
         if (! $article->hasChanged()) {
             return redirect()->back()
                             ->with("message", "Nothing to update.");
@@ -86,20 +88,24 @@ class Articles extends BaseController
                         ->withInput();
     }
 
-    public function delete($id)
+    public function confirmDelete($id)
     {
         $article = $this->getArticleOr404($id);
-
-        if ($this->request->is("post")) {
-            $this->model->delete($id);
-
-            return redirect()->to("articles")
-                            ->with("message", "Article deleted.");
-        }
 
         return view("Articles/delete", [
             "article" => $article
         ]);
+    }
+
+    public function delete($id)
+    {
+        $article = $this->getArticleOr404($id);
+
+        $this->model->delete($id);
+
+        return redirect()->to("articles")
+                        ->with("message", "Article deleted.");
+        
     }
 
     private function getArticleOr404($id): Article

@@ -11,6 +11,6 @@
 
 <br style="margin: 5px 0">
 
-<a href="<?= url_to("Articles::delete", $article->id) ?>">Delete</a>
+<a href="<?= url_to("Articles::confirmDelete", $article->id) ?>">Delete</a>
 
 <?= $this->endSection() ?>
