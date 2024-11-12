@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\ArticleModel;
+use App\Entities\Article;
 
 class Articles extends BaseController
 {
@@ -30,29 +31,61 @@ class Articles extends BaseController
 
     public function new()
     {
-        return view("Articles/new");
+        return view("Articles/new", [
+            "article" => new Article
+        ]);
     }
 
     public function create()
     {
         $model = new ArticleModel;
+
+        $article = new Article($this->request->getPost());
         
-        $id = $model->insert($this->request->getPost());
+        $id = $model->insert($article);
 
         if ($id === false) {
             return redirect()->back()
-                ->with("errors", $model->errors())
-                ->withInput();
+                            ->with("errors", $model->errors())
+                            ->withInput();
         }
 
         return redirect()->to("articles/$id")
-            ->with("message", "Article saved.");
+                        ->with("message", "Article saved.");
+    }
 
-        // $data = $model->findAll();
+    public function edit($id)
+    {
+        $model = new ArticleModel;
 
-        // return view("Articles/index", [
-        //     "articles" => $data
-        // ]);
+        $article = $model->find($id);
+
+        return view("Articles/edit", [
+            "article" => $article
+        ]);
+    }
+
+    public function update($id)
+    {
+        $model = new ArticleModel;
+
+        $article = $model->find($id);
+
+        $article->fill($this->request->getPost());
+
+        if (! $article->hasChanged()) {
+            return redirect()->back()
+                            ->with("message", "Nothing to update.");
+        }
+
+        if ($model->save($article)) {
+            return redirect()->to("articles/$id")
+                            ->with("message", "Article updated.");
+        }
+
+        return redirect()->back()
+                        ->with("errors", $model->errors())
+                        ->withInput();
     }
 
 }
