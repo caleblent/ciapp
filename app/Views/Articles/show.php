@@ -9,4 +9,8 @@
 
 <a href="<?= url_to("Articles::edit", $article->id) ?>">Edit</a>
 
+<br style="margin: 5px 0">
+
+<a href="<?= url_to("Articles::delete", $article->id) ?>">Delete</a>
+
 <?= $this->endSection() ?>

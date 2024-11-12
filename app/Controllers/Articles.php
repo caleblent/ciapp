@@ -86,6 +86,22 @@ class Articles extends BaseController
                         ->withInput();
     }
 
+    public function delete($id)
+    {
+        $article = $this->getArticleOr404($id);
+
+        if ($this->request->is("post")) {
+            $this->model->delete($id);
+
+            return redirect()->to("articles")
+                            ->with("message", "Article deleted.");
+        }
+
+        return view("Articles/delete", [
+            "article" => $article
+        ]);
+    }
+
     private function getArticleOr404($id): Article
     {
         $article = $this->model->find($id);
